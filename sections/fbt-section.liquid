@@ -53,3 +53,32 @@
 }
 
 {% endschema %}
+
+<script>
+document.querySelector('#add-fbt-to-cart').addEventListener('click', function() {
+  const selectedItems = [];
+
+  // 1. Find all checked boxes
+  document.querySelectorAll('.fbt-checkbox:checked').forEach(checkbox => {
+    selectedItems.push({
+      id: checkbox.getAttribute('data-variant-id'),
+      quantity: 1
+    });
+  });
+
+  // 2. Tell Shopify to add these items
+  fetch(window.Shopify.routes.root + 'cart/add.js', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ items: selectedItems })
+  })
+  .then(response => {
+    if (response.ok) {
+      // 3. Refresh the page or open the cart drawer
+      location.reload(); 
+    } else {
+      alert("Something went wrong. Please try again.");
+    }
+  });
+});
+</script>
