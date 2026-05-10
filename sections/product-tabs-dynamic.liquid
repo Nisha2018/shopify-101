@@ -1,0 +1,108 @@
+<style>
+    .product-tabs-wrapper { margin: 40px 0; font-family: inherit; }
+    .tab-list { display: flex; border-bottom: 1px solid #e8e8e8; gap: 20px; }
+    .tab-link { 
+      padding: 10px 20px; border: none; background: none; cursor: pointer; 
+      font-size: 16px; color: #707070; transition: color 0.3s;
+    }
+    .tab-link.active { color: #000; border-bottom: 2px solid #000; font-weight: bold; }
+    
+    .tab-content { display: none; padding: 20px 0; animation: fadeIn 0.4s; }
+    .tab-content.active { display: block; }
+    
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  </style>
+
+<div class="product-tabs-wrapper">
+    <div class="tab-list" role="tablist">
+      {% for block in section.blocks %}
+        <button 
+          class="tab-link {% if forloop.first %}active{% endif %}" 
+          data-tab="tab-{{ block.id }}" 
+          role="tab"
+          aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+          {{ block.shopify_attributes }}>
+          {{ block.settings.title }}
+        </button>
+      {% endfor %}
+    </div>
+  
+    <div class="tab-container">
+      {% for block in section.blocks %}
+        <div 
+          id="tab-{{ block.id }}" 
+          class="tab-content {% if forloop.first %}active{% endif %}" 
+          role="tabpanel">
+          {{ block.settings.content }}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% schema %}
+{
+  "name": "Product Tabs",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Heading",
+      "default": "Product Details"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Tab Title",
+          "default": "New Tab"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Tab Content",
+          "default": "<p>Add your content here</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Tabs",
+      "blocks": [
+        { "type": "tab" },
+        { "type": "tab" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const wrapper = document.querySelector('.product-tabs-wrapper');
+      if (!wrapper) return;
+  
+      wrapper.addEventListener('click', function(e) {
+        const clickedTab = e.target.closest('.tab-link');
+        if (!clickedTab) return;
+  
+        const section = clickedTab.closest('.product-tabs-wrapper');
+        const targetId = clickedTab.getAttribute('data-tab');
+  
+        // Update buttons
+        section.querySelectorAll('.tab-link').forEach(btn => btn.classList.remove('active'));
+        clickedTab.classList.add('active');
+  
+        // Update content
+        section.querySelectorAll('.tab-content').forEach(content => {
+          content.classList.remove('active');
+          if (content.id === targetId) content.classList.add('active');
+        });
+      });
+    });
+  </script>

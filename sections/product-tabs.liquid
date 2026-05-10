@@ -1,0 +1,137 @@
+<style>
+    body {
+        font-family: sans-serif;
+      }
+      
+      .tab-list {
+        display: flex;
+        gap: 20px;
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 20px;
+      }
+      
+      .tab-link {
+        padding: 10px 0;
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-weight: 600;
+        color: #666;
+        position: relative;
+      }
+      
+      .tab-link.active {
+        color: #000;
+      }
+      
+      .tab-link.active::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        width: 100%;
+        height: 2px;
+        background: #000;
+      }
+      
+      .tab-content {
+        display: none;
+        animation: fadeIn 0.3s ease;
+      }
+      
+      .tab-content.active {
+        display: block;
+      }
+      
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(5px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+</style>
+<div class="product-tabs">
+    <div class="tab-list">
+        <button class="tab-link active" data-tab="description">Description</button>
+        <button class="tab-link" data-tab="shipping">Shipping</button>
+        <button class="tab-link" data-tab="reviews">Reviews</button>
+    </div>
+    <div class="tab-container">
+        <div class="tab-content active" id="description">
+            <p>High-quality services.</p>
+        </div>
+        <div class="tab-content" id="shipping">
+            <p>Free shipping across India</p>
+        </div>
+        <div class="tab-content" id="reviews">
+            <p>5-star rated by our customers</p>
+        </div>
+    </div>
+</div>
+
+<script>
+const initTabs = () => {
+  const tabList = document.querySelector(".tab-list");
+  const tabs = document.querySelectorAll(".tab-link");
+  const contents = document.querySelectorAll(".tab-content");
+
+  if (!tabList) {
+    console.log("Tab list not found!"); // Debugging line
+    return;
+  }
+
+  tabList.addEventListener("click", (e) => {
+    const clickedTab = e.target.closest(".tab-link");
+    if (!clickedTab) return;
+
+    const targetId = clickedTab.dataset.tab;
+
+    // Reset buttons
+    tabs.forEach((tab) => {
+      tab.classList.remove("active");
+      tab.setAttribute("aria-selected", "false");
+    });
+    clickedTab.classList.add("active");
+    clickedTab.setAttribute("aria-selected", "true");
+
+    // Reset content
+    contents.forEach((content) => {
+      content.classList.remove("active");
+      if (content.id === targetId) {
+        content.classList.add("active");
+      }
+    });
+  });
+};
+
+// This ensures the DOM is ready
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initTabs);
+} else {
+  initTabs();
+}
+
+</script>
+
+{% schema %}
+  {
+    "name": "Product Tabs",
+    "tag": "section",
+    "class": "product-tabs",
+    "settings": [
+      
+    ],
+    "presets": [
+      {
+        "name": "Product Tabs",
+        "settings": {
+        }
+      }
+    ]
+  }
+{% endschema %}
