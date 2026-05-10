@@ -1,0 +1,84 @@
+<div class="fbt-container">
+    <h2>{{ section.settings.title }}</h2>
+
+    <div class="fbt-items-list">
+        {% for block in section.blocks %}
+            {% assign product = block.settings.selected_product %}
+            {% if product!= blank and product.available %}
+                <div class="fbt-item">
+                    <!-- Hidden ID for the JavaScript to find later -->
+                <input type="checkbox" class="fbt-checkbox" checked 
+                 data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+          
+                <img src="{{ product.featured_image | img_url: '100x100' }}" alt="{{ product.title }}">
+                <p>{{ product.title }} - {{ product.price | money }}</p>
+
+                </div>
+                {% endif %}
+                {% endfor %}
+    </div>
+    <button type="button" id="add-fbt-to-cart">Add Bundle to Cart</button>
+</div>
+
+{% schema %}
+{
+    "name":"FBT Section",
+    "settings": [
+        {
+            "type": "text",
+            "id":"title",
+            "label": "Section Title",
+            "default":"Frequently Bought Together"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "product_block",
+            "name":"Product",
+            "limit": 3,
+            "settings": [
+                {
+                    "type": "product",
+                    "id": "selected_product",
+                    "label":"Choose a Product"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "FBT Section"
+        }
+    ]
+}
+
+{% endschema %}
+
+<script>
+document.querySelector('#add-fbt-to-cart').addEventListener('click', function() {
+  const selectedItems = [];
+
+  // 1. Find all checked boxes
+  document.querySelectorAll('.fbt-checkbox:checked').forEach(checkbox => {
+    selectedItems.push({
+      id: checkbox.getAttribute('data-variant-id'),
+      quantity: 1
+    });
+  });
+
+  // 2. Tell Shopify to add these items
+  fetch(window.Shopify.routes.root + 'cart/add.js', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ items: selectedItems })
+  })
+  .then(response => {
+    if (response.ok) {
+      // 3. Refresh the page or open the cart drawer
+      location.reload(); 
+    } else {
+      alert("Something went wrong. Please try again.");
+    }
+  });
+});
+</script>
