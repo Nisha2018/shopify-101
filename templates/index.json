@@ -12,13 +12,6 @@
     "image_banner": {
       "type": "image-banner",
       "blocks": {
-        "text_iYajmk": {
-          "type": "text",
-          "settings": {
-            "text": "Hello, from cutomizer, hello from shopify code editor",
-            "text_style": "body"
-          }
-        },
         "heading": {
           "type": "heading",
           "settings": {
@@ -39,7 +32,6 @@
         }
       },
       "block_order": [
-        "text_iYajmk",
         "heading",
         "button"
       ],
@@ -119,11 +111,53 @@
         "ai_gen_block_dae3ee3_ED9PKV"
       ],
       "settings": {}
+    },
+    "hello_world_y964wc": {
+      "type": "hello-world",
+      "name": "Hello World",
+      "settings": {}
+    },
+    "product_tabs_dynamic_QKc43K": {
+      "type": "product-tabs-dynamic",
+      "blocks": {
+        "tab_CMAFiz": {
+          "type": "tab",
+          "settings": {
+            "title": "Description",
+            "content": "<p>We provide services which are impressive.</p>"
+          }
+        },
+        "tab_QnETJx": {
+          "type": "tab",
+          "settings": {
+            "title": "Reviews",
+            "content": "<p>Positive reviews</p>"
+          }
+        },
+        "tab_mFQqXV": {
+          "type": "tab",
+          "settings": {
+            "title": "Delivery",
+            "content": "<p>Across all India</p>"
+          }
+        }
+      },
+      "block_order": [
+        "tab_CMAFiz",
+        "tab_QnETJx",
+        "tab_mFQqXV"
+      ],
+      "name": "Product Tabs",
+      "settings": {
+        "section_title": "Product Details"
+      }
     }
   },
   "order": [
     "image_banner",
     "featured_collection",
-    "1778090876ef969430"
+    "1778090876ef969430",
+    "hello_world_y964wc",
+    "product_tabs_dynamic_QKc43K"
   ]
 }
