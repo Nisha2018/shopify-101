@@ -136,11 +136,51 @@
       "settings": {
         "title": "Frequently Bought Together"
       }
+    },
+    "image_with_text_ntGnYf": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_ptQqJ4": {
+          "type": "heading",
+          "settings": {
+            "heading": "{{ product.metafields.custom.influencer.value.name.value }}",
+            "heading_size": "h1"
+          }
+        },
+        "text_JqhNwa": {
+          "type": "text",
+          "settings": {
+            "text": "<p></p>{{ product.metafields.custom.influencer.value.description | metafield_tag }}",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "heading_ptQqJ4",
+        "text_JqhNwa"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "{{ product.metafields.custom.influencer.value.image.value }}",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "main",
     "related-products",
-    "fbt_section_hfPh6d"
+    "fbt_section_hfPh6d",
+    "image_with_text_ntGnYf"
   ]
 }
