@@ -153,11 +153,20 @@
             "text": "<p></p>{{ product.metafields.custom.influencer.value.description | metafield_tag }}",
             "text_style": "body"
           }
+        },
+        "button_LLDNVY": {
+          "type": "button",
+          "settings": {
+            "button_label": "Check more details",
+            "button_link": "{{ product.url }}",
+            "button_style_secondary": false
+          }
         }
       },
       "block_order": [
         "heading_ptQqJ4",
-        "text_JqhNwa"
+        "text_JqhNwa",
+        "button_LLDNVY"
       ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
