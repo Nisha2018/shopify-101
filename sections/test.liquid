@@ -4,6 +4,10 @@
     <h2>{{ product.title }}</h2>
 
     {% if product.featured_image %}
-        <img src="{{ product.featured_image }}" />
+        <img 
+            src="{{ product.featured_image }}"
+            alt="{{ product.featured_image.alt | escape }}""
+        
+        />
     {% endif %}
 </div>
